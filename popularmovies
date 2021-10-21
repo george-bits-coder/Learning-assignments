@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <style>
+ #all_results{
+ 	 
+   display:grid;
+   grid-template-columns:auto auto auto auto;
+   grid-template-rows:auto;
+   gap:auto;
+ }  
+  img{
+  	
+    cursor:pointer;
+    
+  }
+   body{
+   	text-align:center;
+    background-color:#0e0e0e;
+   }
+   h2{
+   	color:white;
+     
+   }
+  </style>
+  </head>
+  
+  
+  
+<body>
+  
+  <h2>Popular movies</h2>
+  <div id="all_results"></div>
+  
+  </body>
+  
+  
+  
+</html>
+
+<script>
+  
+  
+  var ar=document.getElementById("all_results");
+  
+ //  998d1fc64545c68408203acafc6c1a11
+  
+  fetch("https://api.themoviedb.org/3/trending/movie/day?api_key=998d1fc64545c68408203acafc6c1a11").then(function(res){  return res.json();}).then(function(res){
+    
+    console.log(res.results);
+    var movie_results=res.results;
+    for(var i=0;i<20;i++)
+    {
+     var movie=movie_results[i]; 
+      var card=document.createElement("div");
+      var img=document.createElement("img");
+      img.src=""+"https://image.tmdb.org/t/p/w185"+movie.poster_path;
+      var movie_title=document.createElement("h4");
+      movie_title.textContent=movie.original_title;
+       movie_title.style.color="white";
+      card.append(img);
+      card.append(movie_title);
+      ar.appendChild(card);
+    }
+    
+  }).catch(function(err){ console.log(err);});
+</script>
