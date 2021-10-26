@@ -1,0 +1,262 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body{
+
+text-align:center;
+
+
+}
+button{
+cursor:pointer;
+}
+.singlecard{
+
+height:100%;
+width:100%;
+
+transform: scale(0.8);
+
+color:white;
+box-shadow:1px;
+border-radius:4px;
+}
+#cont{
+
+display:grid;
+grid-template-rows:450px;
+grid-template-columns:24% 24% 24% 24%;
+grid-gap:10px;
+background-color:#0e0e0e;
+text-align:left;
+}
+ #det{
+  background-color:#0e0e0e;
+  color:white;
+ }
+.images{
+
+cursor:pointer;
+height:70%;
+width:100%;
+object-fit:scale-down;
+margin-bottom:12.5px;
+
+}
+
+.images:hover{
+transform: scale(1.2);
+}
+#searchbox{
+
+width:200px;
+height:100px;
+text-align:center;
+overflow:scroll;
+justify-content:center;
+margin-left:30%;
+}
+</style>
+
+
+</head>
+<body>
+
+<h2>Movies Search Engine</h2>
+
+<p>Search your favourite movies like a boss!</p>
+
+<input id="mv"placeholder="Enter Movie Name" style="padding-left:15px;" oninput="debounce(dk,3000)"></input>
+<button onclick="wow()">Search for this movie</button>
+<div id="searchbox">
+</div>
+
+<p id="sam"></p>
+<div id="cont"></div>
+<div id="det"></div>
+<script>
+var movie=document.getElementById("mv");
+var ty=document.getElementById("cont");
+var neww=document.getElementById("det");
+function debounce(func,delay){
+
+if(timerid)
+  clearTimeout(timerid);
+
+var timerid=setTimeout(function(){
+
+func();
+},delay);
+}
+ function dk(){
+var box1=document.getElementById("searchbox");
+box1.innerHTML=null;
+movie=document.getElementById("mv");
+var mvh="https://www.omdbapi.com/?s="+movie.value+"&plot=full&apikey=55039499";
+if(movie.value.length>3)
+{fetch(mvh).
+then(res=>{
+ return res.json();
+
+}).then(res=>{
+
+console.log(res.Search);
+var items=res.Search;
+box1=document.getElementById("searchbox");
+items.forEach(function(item){
+
+var card1=document.createElement("p");
+card1.style.cursor="pointer";
+
+card1.textContent=item.Title;
+card1.onclick=function(){
+ ty=document.getElementById("cont");
+neww=document.getElementById("det");
+ty.style.display="none";
+neww.style.display="block";
+callneww(item.Title);
+}
+box1.appendChild(card1);
+}).catch(err=>{
+console.log(err);
+});
+
+});}
+}
+var lis=[];
+var tem="";
+var letsq=[];
+ty=document.getElementById("cont");
+neww=document.getElementById("det");
+function wow(){
+if(ty.style.display=="none")
+ty.style.display="grid";
+
+
+ty.innerHTML=null;
+var msg = new SpeechSynthesisUtterance();
+msg.text = "Showing Results";
+window.speechSynthesis.speak(msg);
+ movie=document.getElementById("mv");
+var tx="https://www.omdbapi.com/?s="+movie.value+"&plot=full&apikey=55039499";
+fetch(tx).
+then(function(res){
+ 
+ return res.json();
+
+}).then(function(res){
+var l=[];
+var v=[];
+var ar=res["Search"];
+
+letsq=[];
+var ty1=document.getElementById("sam");
+ty1.textContent=ar.length +" Results";
+
+
+
+ty.innerHTML=null;
+console.log(ar);
+var lis=0;
+var hh=[];
+var big=[];
+var poster=[];
+var bigc=0;
+var cards=[];
+var bigcard=[];
+var butons=[];
+ar.forEach(function(obj){
+hh=[];
+
+var divv=document.createElement("div");
+divv.className="singlecard";
+var pos=document.createElement("img");
+pos.src=obj["Poster"];
+
+pos.className="images";
+
+pos.addEventListener("click",function(){
+
+
+
+ty.style.display="none";
+neww.style.display="block";
+callneww(obj["Title"]);
+});
+divv.append(pos);
+
+for(k in obj)
+{   
+    if(k!="Poster" && k!="imdbID"&& k!="Type"){
+    l.push(k);
+    v.push(obj[k]);
+    hh[lis]=document.createElement("p");
+    
+    hh[lis].textContent=k+"   -   "+obj[k];
+    
+    divv.append(hh[lis]);
+    
+     lis++;}
+}
+
+var but=document.createElement("button");
+but.textContent="Details";
+but.onclick=function(){
+
+
+ty.style.display="none";
+neww.style.display="block";
+callneww(obj["Title"]);
+}
+divv.append(but);
+ty.append(divv);
+
+bigc++;
+big.push(hh);
+
+});
+
+}).catch(function(er){
+alert("error");
+});
+}
+function callneww(ele){
+
+var postr=document.createElement("p");
+var imgd=document.createElement("img");
+postr.textContent=ele;
+neww.innerHTML=null;
+
+//alert(ele);
+var txww="https://www.omdbapi.com/?t="+ ele +"&apikey=55039499";
+fetch(txww).then(function(res){
+
+return res.json();
+
+}).then(function(res){
+
+console.log(res);
+imgd.src=""+res["Poster"];
+imgd.style.height="200px";
+imgd.style.width="160px";
+var plt=document.createElement("p");
+var rating=document.createElement("p");
+plt.textContent=res["Plot"];
+rating.textContent="IMDB rating is " +res["imdbRating"]+" out of " +res["imdbVotes"]+" votes";
+ if(res["imdbRating"]>8.5)
+    postr.textContent=" RECOMMENDED!  " +ele;
+ neww.append(postr); 
+neww.append(imgd);
+neww.append(plt);
+neww.append(rating);
+}).catch(function(er){
+
+alert("error");
+});
+}
+</script>
+
+</body>
+</html>
