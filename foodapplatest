@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<style>
+#scont{
+	
+  display:grid;
+  grid-template-columns:auto auto auto auto;
+  grid-template-rows:auto;
+  grid-gap:20px;
+  
+}
+button{
+cursor:pointer;
+}
+</style>
+</head>
+<body>
+<nav>
+
+<div id="navbar" style="height:20%;width:100%;color:green;cursor:pointer;border:1px solid blue;">
+<button style="width:25%;background-color:pink;border:0;color:black">Search </button>
+<button style="width:25%;background-color:green;border:0;color:black"> Recipe of the Day </button>
+<button style="width:25%;background-color:blue;border:0;color:black"> Latest Recipe </button>
+</nav>
+<h1>Recipe of the Day</h1>
+  
+  
+
+<p id="ab"></p>
+  <div id="scont"></div>
+</body>
+<script>
+  var tes=document.getElementById("ab");
+  var bigs=document.getElementById("scont");
+  
+bigs.innerHTML=null;
+
+    tes.textContent="Latest meals";
+    
+    fetch("https://www.themealdb.com/api/json/v1/1/filter.php?a=Indian").then(function(res){
+     return res.json(); 
+    }).then(function(res){
+      
+      var arti=res["meals"];
+      console.log(res);
+    arti.forEach(function(item){
+          var card1=document.createElement("div");
+          var titl=document.createElement("p");
+          var imgs1=document.createElement("img");
+          imgs1.style.height="120px";
+          imgs1.style.width="200px";
+          //var desc1=document.createElement("p");
+          
+          titl.textContent=item["strMeal"];
+          imgs1.src=item["strMealThumb"];
+        //  desc1.textContent=item["strInstructions"];
+        
+          card1.append(titl);
+          card1.append(imgs1);
+         // card1.append(desc1);
+          bigs.appendChild(card1);
+      });
+      
+    }).catch(function(err){
+      
+      console.log(err);
+    });
+  
+</script>
+</html>
