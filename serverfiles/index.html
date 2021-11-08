@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1>Add Producr</h1>
+  <form id="addproduct" onsubmit="add_product(event)">
+        <input type="number" placeholder="id" id="a"/>
+        <input type="text" placeholder="name" id="name"/>
+        <input type="number" placeholder="price" id="price"/>
+        <input type="submit" >
+
+  </form>
+</body>
+
+<script>
+function add_product(e){
+e.preventDefault();
+var form1=document.getElementById("addproduct");
+var idv=form1.a.value;
+var namev=form1.name.value;
+var pricev=form1.price.value;
+var data ={
+    id:idv,
+    name:namev,
+    price:pricev
+}
+fetch("http://localhost:3000/api/products",{
+
+    method:"POST",
+    body:JSON.stringify(data),
+    headers:{
+        "Content-Type":"application/json",
+    },
+    }).then(function(res){
+        return res.json();
+    }).then(function(res){
+        console.log(res);
+    });
+}
+
+
+</script>
+</html>
