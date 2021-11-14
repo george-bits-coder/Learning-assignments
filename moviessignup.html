@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+ <head>
+   
+  </head>
+  
+  
+  
+  <body>
+    <h1> Signup  </h1>
+    <form id="form1" onsubmit="signup(event)">
+              
+    <input id="name" placeholder="name" type="text"/><br>
+    <input id="email" placeholder="email" type="email"/><br>
+    <input id="password" placeholder="password" type="text"/><br>
+    <input id="username" placeholder="username" type="text"/><br>         
+    <input id="mobile" placeholder="mobile" type="number"/><br>       
+    <input id="description" placeholder="description" type="text"/><br>
+    <input type="submit"/>
+              
+           
+    </form>
+    
+    
+  </body>
+  
+  
+  <script>
+    
+    function signup(e){
+      e.preventDefault();
+     var f=document.getElementById("form1");
+      var obj={};
+     obj.name=f.name.value;
+      obj.email=f.email.value;
+       obj.password=f.password.value;
+      obj.username=f.username.value;
+       obj.mobile=f.mobile.value;
+       obj.description=f.description.value;
+      
+      
+    
+    
+    
+    obj=JSON.stringify(obj);
+    
+    fetch("https://masai-api-mocker.herokuapp.com/auth/register",{
+      
+      method:'POST',
+      body:obj,
+      headers:{'Content-Type':'application/json'}
+      
+    }).then(function(res){
+      
+      return res.json();
+      
+      
+    }).then(function(res){
+      
+      console.log(res);
+      
+      
+    });
+    
+    }
+    
+  </script>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</html>
