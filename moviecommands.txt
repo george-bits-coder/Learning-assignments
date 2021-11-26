@@ -1,0 +1,22 @@
+ db.movie.find({movie_name:{$eq:"Music in the Air"}},{movie_name:1,production_year:1}).pretty()
+ db.movie.find({movie_name:{$ne:"Music in the Air"}},{movie_name:1,production_year:1}).pretty()
+ db.movie.find({budget:{$gt:10000}},{movie_name:1,production_year:1}).pretty()
+ db.movie.find({budget:{$gte:15000}},{movie_name:1,production_year:1}).pretty()
+ db.movie.find({budget:{$lt:10000}},{movie_name:1,production_year:1}).pretty()
+ db.movie.find({budget:{$lte:10000}},{movie_name:1,production_year:1}).pretty()
+
+db.movie.find({$and:[{production_year:{$gt:2000}},{budget:{$gt:10000}}]},{movie_name:1,production_year:1}).pretty()
+
+db.movie.find({$or:[{production_year:{$gt:2000}},{budget:{$gt:10000}}]},{movie_name:1,production_year:1}).pretty()
+
+ db.movie.find({$nor:[{production_year:{$gt:2000}},{budget:{$gt:10000}}]},{movie_name:1,production_year:1}).pretty()
+
+ db.movie.find({$or:[{production_year:{$ne:2000}},{budget:{$ne:10000}}]},{movie_name:1,production_year:1}).pretty()
+
+
+ db.movie.find({$and:[{production_year:{$gte:2000}},{production_year:{$lte:2010}}]},{movie_name:1,production_year:1}).pretty()
+
+ db.movie.find({},{movie_name:1,production_year:1}).sort({production_year:-1,movie_name:1}).pretty()
+
+db.movie.find({},{movie_name:1,production_year:1}).sort({production_year:-1,movie_name:1}).skip(20).limit(5)
+
