@@ -1,0 +1,75 @@
+.redColor{
+
+    color:red;
+}
+
+#logo_image{
+
+    border-radius:50%;
+}
+
+#container{
+
+    display:flex;
+}
+
+#left_container{
+
+    width:50%;
+    
+}
+
+#right_container{
+
+    width:50%;
+    
+}
+
+button{
+
+    cursor:pointer;
+    width:60%;
+    height:30px;
+    margin-bottom:10px;
+    border-radius:10px;
+    background-color:navy;
+    color:white;
+}
+
+input:focus{
+
+    box-shadow:0 0 2pt 3pt navy;
+    border:none;
+    outline:none;
+
+
+}
+
+textarea:focus{
+
+    box-shadow:0 0 2pt 3pt navy;
+    border:none;
+    outline:none;
+
+
+}
+
+h1{
+
+    font-family: 'Indie Flower', cursive;
+    
+}
+
+input{
+
+    font-family: 'Open Sans Condensed', sans-serif;
+    letter-spacing:3px;
+}
+textarea{
+    font-family: 'Open Sans Condensed', sans-serif;
+    letter-spacing:3px;
+    margin-bottom:3%;
+}
+p{
+    margin:5px;
+}
